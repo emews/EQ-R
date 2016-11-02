@@ -33,15 +33,15 @@ Build
 
 Outline
 -------
-#. ``./bootstrap``
+``./bootstrap``
 
-#. ``cp settings.template.sh settings.sh`` and edit
+``cp settings.template.sh settings.sh`` and edit
 
-#. ``source settings.sh``
+``source settings.sh``
 
-#. ``./configure ...``
+``./configure ...``
 
-#. ``make install``
+``make install``
 
 Details
 -------
