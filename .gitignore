@@ -1,0 +1,5 @@
+# make can copy EQR.swift here so ignore it
+# here, but include it in src
+/EQR.swift
+libeqr.so
+pkgIndex.tcl
