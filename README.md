@@ -67,7 +67,7 @@ You can do ``make clean`` or ``make distclean``.
 
 Troubleshooting
 -------
-** ./configure halts with "checking whether the C++ compiler works... no" **
+**./configure halts with "checking whether the C++ compiler works... no"**
 
 Check that your compiler settings in settings.sh are correct, the library
 locations in particular.
