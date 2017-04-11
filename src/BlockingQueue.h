@@ -2,11 +2,12 @@
 /**
    BlockingQueue.h
    Blocking queue ADT
- */ 
+ */
 
 #include <mutex>
 #include <condition_variable>
 #include <deque>
+#include <thread>
 
 template<typename T>
 class BlockingQueue {
@@ -23,9 +24,10 @@ public:
 		}
 		this->d_condition.notify_one();
 	}
-
+	
 	T pop() {
 		std::unique_lock<std::mutex> lock(this->d_mutex);
+		// [ capture-list ] ( params ) { body }
 		this->d_condition.wait(lock, [=] {return !this->d_queue.empty();});
 		T rc(std::move(this->d_queue.back()));
 		this->d_queue.pop_back();

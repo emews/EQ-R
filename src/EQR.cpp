@@ -9,6 +9,8 @@
 #include <iostream>
 #include <random>
 #include <thread>
+#include <exception>
+#include <stdexcept>
 
 #include "BlockingQueue.h"
 #include "EQR.h"
@@ -30,6 +32,26 @@ static BlockingQueue<string> IN, OUT;
 #define LOG(x)
 #endif
 
+// To be called from R
+void OUT_put(const string& value);
+
+// To be called from R
+string IN_get();
+
+void handle_eptr(std::exception_ptr eptr) // passing by value is ok
+{
+    try {
+        if (eptr) {
+            std::rethrow_exception(eptr);
+        }
+    } catch(const std::exception& e) {
+      // as if R code caught its own exception and
+      // flagged an abort
+      OUT_put("EQR_ABORT");
+      OUT_put(e.what());
+    }
+}
+
 static void do_work(RInside& r_inside, const string& script_file) {
 
   LOG("do_work()...");
@@ -44,15 +66,15 @@ static void do_work(RInside& r_inside, const string& script_file) {
   }
 
   LOG("parseEvalQ()...");
-  r_inside.parseEvalQ(str);
+  std::exception_ptr e_ptr;
+  try {
+    r_inside.parseEvalQ(str);
+  } catch (...) {
+    e_ptr = std::current_exception();
+  }
+  handle_eptr(e_ptr);
   LOG("parseEvalQ(): done.");
 }
-
-// To be called from R
-void OUT_put(const string& value);
-
-// To be called from R
-string IN_get();
 
 void initR(string script_file) {
   int argc = 0;
