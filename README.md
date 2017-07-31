@@ -69,5 +69,5 @@ Troubleshooting
 -------
 **./configure halts with "checking whether the C++ compiler works... no"**
 
-Check that your compiler settings in settings.sh are correct, the library
-locations in particular.
+To inspect what went went wrong, you will have to look in the generated
+config.log .  Check that your compiler settings in settings.sh are correct, the library locations in particular.
