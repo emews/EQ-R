@@ -35,7 +35,8 @@ called from C++.  We did that by making a SWIG/Tcl package for
 
 Then, the Makefile is able to build the whole thing.
 
-The symbol names have been updated to match the MRTC paper, Figure 2.
+The symbol names match the MRTC paper, Figure 2
+http://www.mcs.anl.gov/~wozniak/papers/MRTC_2015.pdf
 
 File index
 ==========
