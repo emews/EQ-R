@@ -4,14 +4,14 @@
 .. sectnum::
 
 ========================================
- EQ.R: Workflow Algorithms via Queues: R
+ EQ/R: Workflow Algorithms via Queues: R
 ========================================
 
-**EQ.R** allows us to rapidly prototype high-level algorithms in R by
+**EQ/R** allows us to rapidly prototype high-level algorithms in R by
 providing queues that connect R to a Swift/T workflow.
 
-The initial ABC/Swift/Tcl integration is now an EQ.R project, in
-``EQ.R-tests/ABC``.
+The initial ABC/Swift/Tcl integration is now an EQ/R project, in
+``EQ-R-tests/ABC``.
 
 Overview
 ========
@@ -23,7 +23,7 @@ The point of this is to make Tcl bindings for the C++ functions so
 that Tcl can communicate with R, and thus allows Swift/T to
 communicate with R.
 
-Start by looking at ``EQ.R-tests/ABC/test-cpp.cpp`` - this version of
+Start by looking at ``EQ-R/tests/ABC/test-cpp.cpp`` - this version of
 the C++ driver has been broken down into component features (R/thread
 control, queue operations, and a computational task).  The thread and
 queue features are placed in library ``EQR.cpp``.  The task is
