@@ -34,6 +34,14 @@ RCPP=$R_LOCAL_LIB/Rcpp
 # R_INSIDE=$R_HOME/Resources/RInside
 # RCPP=$R_HOME/Resources/Rcpp
 
+# Cori
+# R=/global/homes/w/wozniak/Public/sfw/R-3.4.0/lib64/R
+# R_INCLUDE=$R/include
+# R_LIB=$R/lib
+# R_LOCAL_LIB=$R/library
+# R_INSIDE=$R_LOCAL_LIB/RInside
+# RCPP=$R_LOCAL_LIB/Rcpp
+
 #system-wide tcl
 TCL_INCLUDE=/usr/local/include/tcl
 TCL_LIB=/usr/local/lib
