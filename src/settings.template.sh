@@ -26,7 +26,7 @@ RCPP=$R_LOCAL_LIB/Rcpp
 # R_INSIDE=$R_HOME/lib/R/library/RInside
 # RCPP=$R_HOME/lib/R/library/Rcpp
 
-# OSX - R installed in /Library/Framework/R with
+# # OSX - R installed in /Library/Framework/R with
 # Rcpp and RInside installed beneath that
 # R_HOME=/Library/Frameworks/R.framework
 # R_INCLUDE=$R_HOME/Resources/include
@@ -34,7 +34,7 @@ RCPP=$R_LOCAL_LIB/Rcpp
 # R_INSIDE=$R_HOME/Resources/RInside
 # RCPP=$R_HOME/Resources/Rcpp
 
-# Cori
+# # Cori
 # R=/global/homes/w/wozniak/Public/sfw/R-3.4.0/lib64/R
 # R_INCLUDE=$R/include
 # R_LIB=$R/lib
