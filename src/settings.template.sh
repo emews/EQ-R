@@ -42,6 +42,20 @@ RCPP=$R_LOCAL_LIB/Rcpp
 # R_INSIDE=$R_LOCAL_LIB/RInside
 # RCPP=$R_LOCAL_LIB/Rcpp
 
+# # Theta
+# R=/home/wozniak/Public/sfw/theta/R-3.4.0/lib64/R
+# R_INCLUDE=$R/include
+# R_LIB=$R/lib
+# R_LOCAL_LIB=$R/library
+# R_INSIDE=$R_LOCAL_LIB/RInside
+# RCPP=$R_LOCAL_LIB/Rcpp
+# export LD_LIBRARY_PATH=$R_LIB:$LD_LIBRARY_PATH
+
+# TCL=/home/wozniak/Public/sfw/theta/tcl-8.6.1
+# TCL_INCLUDE=$TCL/include
+# TCL_LIB=$TCL/lib
+# TCL_LIBRARY=tcl8.6
+
 #system-wide tcl
 TCL_INCLUDE=/usr/local/include/tcl
 TCL_LIB=/usr/local/lib
