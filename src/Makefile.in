@@ -4,6 +4,7 @@
 
 .DELETE_ON_ERROR:
 
+# The installation directory
 PREFIX = @prefix@
 
 include settings.mk
@@ -46,6 +47,7 @@ INSTALL_TARGETS = $(patsubst %, $(PREFIX)/%, $(INSTALLABLES))
 
 install: $(INSTALL_TARGETS)
 
+# Creates the installation directory
 $(PREFIX):
 	mkdir -pv $(PREFIX)
 
