@@ -5,10 +5,24 @@
 # Populated with compiler settings at configure-time
 # Included by Makefile
 
-CXXFLAGS = -g -O0 -fPIC -std=c++0x @CXXFLAGS@
-CPPFLAGS = @CPPFLAGS@
-LDFLAGS = @LDFLAGS@
+R_INCLUDE = @USE_R@/include
+R_LIB = @USE_R@/lib
+R_INSIDE = @RINSIDE_PATH@
+RCPP = @RCPP_PATH@
 
-TCL_VERSION = @TCL_VERSION@
+CPPFLAGS = -g -O0 -fPIC -std=c++0x 
+CPPFLAGS := $(CPPFLAGS)@TCL_INCLUDE_SPEC@ 
+CPPFLAGS := $(CPPFLAGS)-I$(R_INCLUDE) 
+CPPFLAGS := $(CPPFLAGS)-I$(RCPP)/include 
+CPPFLAGS := $(CPPFLAGS)-I$(R_INSIDE)/include 
+CXXFLAGS = $(CPPFLAGS)
+
+LDFLAGS = -L$(R_INSIDE)/lib -lRInside 
+LDFLAGS := $(LDFLAGS)-L$(R_LIB) -lR 
+LDFLAGS := $(LDFLAGS)@TCL_LIB_SPEC@ 
+LDFLAGS := $(LDFLAGS)-Wl,-rpath -Wl,@USE_TCL_LIB_DIR@ 
+LDFLAGS := $(LDFLAGS)-Wl,-rpath -Wl,$(R_LIB) 
+LDFLAGS := $(LDFLAGS)-Wl,-rpath -Wl,$(R_INSIDE)/lib
+
 TCLSH = @USE_TCLSH@
-SED_I = @USE_SED_I@
+

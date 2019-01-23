@@ -36,8 +36,7 @@ HEADERS = $(wildcard *.h) Makefile
 $(EQR_SO): EQR_wrap.o EQR.o
 	g++ -shared -o $(@) \
 		$(^)        \
-		$(LDFLAGS)  \
-		-lRInside
+		$(LDFLAGS)
 
 pkgIndex.tcl: make-package.tcl $(EQR_SO) Makefile
 	$(TCLSH) $(<) > $(@)
