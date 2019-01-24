@@ -19,22 +19,22 @@ EQR_wrap.cxx: EQR.i EQR.h Makefile
 	swig -c++ -pkgversion 0.1 $(<)
 
 EQR_wrap.o: EQR_wrap.cxx
-	g++ -c $(CXXFLAGS) $(CPPFLAGS) \
+	CC -c $(CXXFLAGS) $(CPPFLAGS) \
 		$(<)
 
 # Rebuild everything if any header changes
 HEADERS = $(wildcard *.h) Makefile
 
 %.o: %.cpp $(HEADERS)
-	g++ -c $(CXXFLAGS) $(CPPFLAGS) \
+	CC -c $(CXXFLAGS) $(CPPFLAGS) \
 		$(<)
 
 %.x: %.o EQR.o
-	g++ -o $(@) $(<) EQR.o \
+	CC -o $(@) $(<) EQR.o \
 		$(LDFLAGS)
 
 $(EQR_SO): EQR_wrap.o EQR.o
-	g++ -shared -o $(@) \
+	CC -shared -o $(@) \
 		$(^)        \
 		$(LDFLAGS)
 
