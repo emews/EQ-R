@@ -35,10 +35,6 @@ Outline
 -------
 ``./bootstrap``
 
-``cp settings.template.sh settings.sh`` and edit
-
-``source settings.sh``
-
 ``./configure ...``
 
 ``make install``
@@ -48,18 +44,13 @@ Details
 
 Run ``./bootstrap``.  This runs ``autoconf`` and generates ``./configure``.
 
-Then, you need to set ``CPPFLAGS``, ``CXXFLAGS``, and ``LDFLAGS``.
-The recommended way to do this is to make a personal copy of
-``settings.template.sh``, edit it to contain your settings, and source
-it.
-
 Then, run ``./configure``.  You can use ``./configure --help``.  Key
 settings are:
 
 * ``--prefix``: EQ.R install location. This defaults to $PWD/.. for
 compatibility with EMEWS templates (https://github.com/emews/emews-lazybones-templates)
-* ``--enable-mac-bsd-sed``: For Mac users
-* ``--with-tcl-version=8.5``: If you are using Tcl 8.5
+* ``--with-tcl``: Point to Tcl installation root (e.g., /usr)
+* ``--with-r``: Point to R installation root (requires RInside and Rcpp packages)
 
 Then do ``make install``.
 
