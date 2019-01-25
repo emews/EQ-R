@@ -28,7 +28,25 @@ File index
   ``include`` <!--- --> by other Makefiles to obtain build settings, for
   example, to compile task code that will be called from Swift.
 
-Build
+Spack Install
+=======
+* [Install Spack](https://spack.readthedocs.io/en/latest/getting_started.html)
+* Set up Spack shell support, e.g., for bash 
+  * ``. [path to spack]/share/spack/setup-env.sh``
+* Clone the EMEWS Spack repository
+  * ``git clone https://github.com/emews/spack_emews``
+* Change directory into the repository
+  * ``cd spack_emews``
+* Add the EMEWS Spack repository to your existing Spack repository or repositories
+  * ``spack repo add .``
+* Install EQ/R
+  * ``spack install eqr``
+
+This will install EQ/R along with any dependencies. (Look [here](http://swift-lang.github.io/swift-t/guide.html#_spack_tips) for tips for using existing dependencies.) You will then need to point to the install location of EQ/R in your EMEWS workflow launch script. The location can be queried via:
+
+* ``spack location --install-dir eqr`` 
+
+Manual Build
 =====
 
 Outline
@@ -55,6 +73,7 @@ compatibility with EMEWS templates (https://github.com/emews/emews-lazybones-tem
 Then do ``make install``.
 
 You can do ``make clean`` or ``make distclean``.
+
 
 Troubleshooting
 -------
