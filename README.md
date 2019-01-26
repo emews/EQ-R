@@ -47,6 +47,8 @@ This will install EQ/R along with any dependencies. (Look [here](http://swift-la
 
 * ``spack location --install-dir eqr`` 
 
+For information on installing Swift/T for EMEWS, look [here](https://emews.github.io).
+
 Manual Build
 =====
 
