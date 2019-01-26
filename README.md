@@ -30,9 +30,10 @@ File index
 
 Spack Install
 =======
-* [Install Spack](https://spack.readthedocs.io/en/latest/getting_started.html)
+* Install [Spack](https://spack.readthedocs.io/en/latest/getting_started.html)
+  * ``git clone https://github.com/spack/spack.git``
 * Set up Spack shell support, e.g., for bash 
-  * ``. [path to spack]/share/spack/setup-env.sh``
+  * ``. spack/share/spack/setup-env.sh``
 * Clone the EMEWS Spack repository
   * ``git clone https://github.com/emews/spack_emews``
 * Change directory into the repository
