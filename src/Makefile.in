@@ -7,6 +7,7 @@
 # The installation directory
 PREFIX = @prefix@
 
+CC  = @CC@
 CXX = @CXX@
 
 include settings.mk
@@ -21,22 +22,22 @@ EQR_wrap.cxx: EQR.i EQR.h Makefile
 	swig -c++ -pkgversion 0.1 $(<)
 
 EQR_wrap.o: EQR_wrap.cxx
-	$(CC) -c $(CXXFLAGS) $(CPPFLAGS) \
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) \
 		$(<)
 
 # Rebuild everything if any header changes
 HEADERS = $(wildcard *.h) Makefile
 
 %.o: %.cpp $(HEADERS)
-	$(CC) -c $(CXXFLAGS) $(CPPFLAGS) \
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) \
 		$(<)
 
 %.x: %.o EQR.o
-	$(CC) -o $(@) $(<) EQR.o \
+	$(CXX) -o $(@) $(<) EQR.o \
 		$(LDFLAGS)
 
 $(EQR_SO): EQR_wrap.o EQR.o
-	$(CC) -shared -o $(@) \
+	$(CXX) -shared -o $(@) \
 		$(^)        \
 		$(LDFLAGS)
 
