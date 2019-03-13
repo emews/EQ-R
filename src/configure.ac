@@ -243,6 +243,7 @@ AC_HEADER_STDBOOL
 
 # R, adapted from turbine configure.ac
 
+HAVE_R=0
 USE_R=0
 RCPP_PATH=0
 RINSIDE_PATH=0
@@ -322,6 +323,8 @@ then
   # C++ is only required if we enable R
   AC_PROG_CXX
   LD=${CXX}
+else
+  echo "WARNING: Never found R!"
 fi # if HAVE_R
 AC_DEFINE_UNQUOTED([HAVE_R],$HAVE_R,[Enables R])
 AC_SUBST(USE_R)
