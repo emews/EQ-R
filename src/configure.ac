@@ -243,6 +243,7 @@ AC_HEADER_STDBOOL
 
 # R, adapted from turbine configure.ac
 
+HAVE_R=0
 USE_R=0
 RCPP_PATH=0
 RINSIDE_PATH=0
