@@ -323,6 +323,8 @@ then
   # C++ is only required if we enable R
   AC_PROG_CXX
   LD=${CXX}
+else
+  echo "WARNING: Never found R!"
 fi # if HAVE_R
 AC_DEFINE_UNQUOTED([HAVE_R],$HAVE_R,[Enables R])
 AC_SUBST(USE_R)
