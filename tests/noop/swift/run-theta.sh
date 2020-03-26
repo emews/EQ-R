@@ -1,26 +1,32 @@
 #!/bin/sh
 set -eu
 
-THIS=$( cd $( dirname $0 ); /bin/pwd )
+THIS=$( readlink --canonicalize $( dirname $0 )  )
 export EMEWS_PROJECT_ROOT=$( cd $THIS/.. ; /bin/pwd )
 
-SWIFT=$HOME/Public/sfw/theta/swift-t/2020-03-03
-EQR=$HOME/Public/sfw/theta/EQ-R
+ROOT=/projects/Swift-T/public/sfw/theta/aprun
 
-export TURBINE_RESIDENT_WORK_WORKERS=1
+# SWIFT=$HOME/Public/sfw/theta/swift-t/2020-03-03
+# EQR=$HOME/Public/sfw/theta/EQ-R
 
-export PROJECT=CSC249ADOA01 # CANDLE_ECP # ecp-testbed-01
-# CVD_Research
-export QUEUE=debug-cache-quad
+SWIFT=$ROOT/swift-t/2020-03-26
+EQR=$ROOT/EQ-R
+R=$ROOT/R-3.6.0/lib64/R
+
+export PROJECT=CVD_Research
+# export PROJECT=CSC249ADOA01
+export QUEUE=CVD_Research
 # export QUEUE=debug-flat-quad
 export WALLTIME=00:02:00
 
-R=/home/wozniak/Public/sfw/theta/R-3.4.0/lib64/R
 LLP=$R/lib
 
 PATH=$SWIFT/stc/bin:$PATH
 
 export TURBINE_RESIDENT_WORK_WORKERS=1
+
+export TURBINE_DEBUG=0
+export ADLB_DEBUG=0
 
 set -x
 swift-t -n 3 -p -I $EQR -r $EQR -m theta -t w \
