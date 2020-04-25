@@ -245,6 +245,7 @@ AC_HEADER_STDBOOL
 
 HAVE_R=0
 USE_R=0
+USE_R_INCLUDE=0
 RCPP_PATH=0
 RINSIDE_PATH=0
 
@@ -272,13 +273,41 @@ AC_ARG_WITH(r,
       USE_R=${withval}
   ])
 
-if [[ ${HAVE_R} == 1 ]]
+if (( ${HAVE_R} == 0 ))
 then
-  AC_MSG_RESULT([Adding to PATH: $USE_R/../../bin ])
-  PATH=$USE_R/../../bin:$PATH
+    # Look for R in PATH
+    AC_MSG_RESULT([Looking for R in PATH ...])
+    TRY=$( which R )
+    if [[ -x ${TRY} ]]
+    then
+        HAVE_R=1
+        AC_MSG_RESULT([Found executable: ${TRY}])
+        USE_R=$( readlink --canonicalize $( dirname ${TRY} )/.. )
+        AC_MSG_RESULT([Setting R location: ${USE_R}])
+    fi
+fi
 
-  AC_CHECK_FILE(${USE_R}/include/R.h, [],
-        [AC_MSG_ERROR([Could not find R header!])])
+if (( ${HAVE_R} == 1 ))
+then
+  R_BIN=$( readlink --canonicalize ${USE_R}/../../bin )
+  AC_MSG_RESULT([Adding to PATH: ${R_BIN}])
+  PATH=${R_BIN}:${PATH}
+
+  AC_CHECK_FILE(${USE_R}/include/R.h,
+                [USE_R_INCLUDE=${USE_R}/include])
+  if [[ ${USE_R_INCLUDE} = 0 ]]
+  then
+      # This is in APT package r-base-core:
+      AC_CHECK_FILE(${USE_R}/share/R/include/R.h,
+                    [USE_R_INCLUDE=${USE_R}/share/R/include])
+  fi
+  if [[ ${USE_R_INCLUDE} = 0 ]]
+  then
+      AC_MSG_WARN([Never found R header!])
+  fi
+
+  AC_MSG_RESULT([Setting: USE_R_INCLUDE=${USE_R_INCLUDE}])
+
   if [[ ${RINSIDE_PATH} == 0 ]]
   then
     AC_CHECK_PROG(RSCRIPT, Rscript, Rscript)
@@ -300,13 +329,13 @@ then
   if [[ ${RCPP_PATH} == 0 ]]
   then
     AC_CHECK_PROG(RSCRIPT, Rscript, Rscript)
-    if [[ ! -z ${RSCRIPT} ]]
+    if [[ "${RSCRIPT:-}" != "" ]]
     then
       R_LIB_PATHS="${USE_R} "
       # returned in order of precedence so we want to
       # reverse so that the last overrides the first
       R_LIB_PATHS+="$(Rscript -e 'cat(rev(.libPaths()))')"
-      for p in $R_LIB_PATHS
+      for p in ${R_LIB_PATHS}
       do
         AC_CHECK_FILE(${p}/Rcpp, [RCPP_PATH=${p}/Rcpp], [])
       done
@@ -323,11 +352,12 @@ then
   # C++ is only required if we enable R
   AC_PROG_CXX
   LD=${CXX}
-else
-  echo "WARNING: Never found R!"
+else # ! HAVE_R
+  AC_MSG_WARN([Never found R!])
 fi # if HAVE_R
 AC_DEFINE_UNQUOTED([HAVE_R],$HAVE_R,[Enables R])
 AC_SUBST(USE_R)
+AC_SUBST(USE_R_INCLUDE)
 AC_SUBST(RINSIDE_PATH)
 AC_SUBST(RCPP_PATH)
 
