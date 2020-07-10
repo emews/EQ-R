@@ -59,9 +59,8 @@ static void do_work(RInside& r_inside, const string& script_file) {
   string str((istreambuf_iterator<char>(t)),
                   istreambuf_iterator<char>());
 
-  if (! t.good())
-  {
-    cout << "ERROR with script file: " << script_file << endl;
+  if (! t.good()) {
+    cout << "EQ/R: I/O error with script file: " << script_file << endl;
     exit(1);
   }
 
