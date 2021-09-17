@@ -298,9 +298,17 @@ then
   if [[ ${USE_R_INCLUDE} = 0 ]]
   then
       # This is in APT package r-base-core:
+      AC_CHECK_FILE(${USE_R}/lib64/R/include/R.h,
+                    [USE_R_INCLUDE=${USE_R}/lib64/R/include])
+  fi
+
+  if [[ ${USE_R_INCLUDE} = 0 ]]
+  then
+      # This is in APT package r-base-core:
       AC_CHECK_FILE(${USE_R}/share/R/include/R.h,
                     [USE_R_INCLUDE=${USE_R}/share/R/include])
   fi
+
   if [[ ${USE_R_INCLUDE} = 0 ]]
   then
       AC_MSG_WARN([Never found R header!])
