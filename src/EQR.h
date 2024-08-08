@@ -6,8 +6,7 @@
    Some functions wrapped by QueueFuncsTcl
  */
 
-#ifndef EQR_H
-#define EQR_H
+#pragma once
 
 #include <string>
 
@@ -23,4 +22,4 @@ void stopIt(void);
 
 void deleteR(void);
 
-#endif
+void testR(std::string s);

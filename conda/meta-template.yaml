@@ -1,0 +1,56 @@
+COMMENT(
+# META TEMPLATE YAML
+# Will be filtered into PLATFORM/meta.yaml by conda-build.sh:m4
+)
+
+# Date that this meta.yaml was filtered:
+# DATE: getenv(DATE)
+
+{% set name = "getenv(PKG_NAME)" %}
+{% set version = "1.0" %}
+{% set major = version.rpartition('.')[0] %}
+{% set sha256 = 'f5b26bb1ac427c271e19dff2146101f7c4da03652d66426a291e96638ba15c03' %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+  sha256: {{ sha256 }}
+
+source:
+  path: getenv(EQR_HOME)
+
+build:
+  number: 1
+  # Environment variables for build.sh must be listed here,
+  # normal environment inheritance does not happen!
+  script_env:
+    - PLATFORM=getenv(PLATFORM)
+m4_ifelse(getenv(ENABLE_R),`1',m4_include(env-R.yaml))
+
+# Remember to sync any dependency changes here with conda-install.sh
+requirements:
+  build:
+    - python==getenv(PYTHON_VERSION)
+    - autoconf
+    - swig
+    - make
+m4_ifelse(getenv(USE_GCC),`1',m4_include(pkgs-gcc.yaml))
+m4_include(pkgs-R.yaml)
+
+  run:
+    - python==getenv(PYTHON_VERSION)
+m4_ifelse(getenv(USE_GCC),`1',m4_include(pkgs-gcc.yaml))
+m4_include(pkgs-R.yaml)
+
+test:
+  commands:
+    - echo EQR-TEST-SUCCESS
+
+about:
+  home: http://emews.org
+  license: Apache License 2.0
+  summary: EQ/R means EMEWS Queues for R
+
+extra:
+  recipe-maintainers:
+    - swift-t

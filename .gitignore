@@ -3,3 +3,8 @@
 /EQR.swift
 libeqr.so
 pkgIndex.tcl
+
+# Generated meta.yamls
+meta.yaml
+# Logs from Anaconda builds:
+*.log
