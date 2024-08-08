@@ -12,6 +12,8 @@
 #include <exception>
 #include <stdexcept>
 
+#include <stdio.h>
+
 #include "BlockingQueue.h"
 #include "EQR.h"
 
@@ -132,4 +134,18 @@ void stopIt() {
 void deleteR() {
   LOG("deleteR()");
   delete r;
+}
+
+#define CODE_LENGTH 1024
+void testR(string s) {
+  char buffer[CODE_LENGTH];
+  LOG("testR: string: " << s);
+  const char t[] =
+    "x = \"%s\" ; "
+    "n = nchar(x) ; "
+    "cat(x, \" is of length \", n, \"\\n\") ; "
+    "flush.console()";
+  sprintf(buffer, t, s.c_str());
+  LOG("text: " << buffer);
+  r->parseEvalQ(buffer);
 }

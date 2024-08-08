@@ -19,7 +19,7 @@ all: pkg
 pkg: pkgIndex.tcl
 
 EQR_wrap.cxx: EQR.i EQR.h Makefile
-	swig -c++ -pkgversion 0.1 $(<)
+	swig -tcl -c++ -pkgversion 0.1 $(<)
 
 EQR_wrap.o: EQR_wrap.cxx
 	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) \
