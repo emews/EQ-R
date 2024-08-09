@@ -91,7 +91,9 @@ fi
 
 # Determine configuration for EQ/R build:
 CFG_ARGS=(
-  --prefix=$PREFIX
+  # Cannot install libeqr.so to $PREFIX on osx-64
+  # Use subdirectory:
+  --prefix=$PREFIX/lib
   --with-r=$R_HOME
   --with-tcl=$PREFIX
   )
