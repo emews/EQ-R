@@ -5,6 +5,7 @@
    including using of queues, thread, and R
  */
 
+#include <cassert>
 #include <fstream>
 #include <iostream>
 #include <random>
@@ -144,7 +145,8 @@ void testR(string s) {
     "n = nchar(x) ; "
     "cat(x, \" is of length \", n, \"\\n\") ; "
     "flush.console()";
-  sprintf(buffer, t, s.c_str());
+  int n = snprintf(buffer, CODE_LENGTH, t, s.c_str());
+  assert(n < CODE_LENGTH);
   LOG("text: " << buffer);
   r->parseEvalQ(buffer);
 }
