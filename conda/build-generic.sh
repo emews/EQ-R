@@ -105,12 +105,15 @@ echo "CFG_ARGS:" ${CFG_ARGS[@]}
 {
   echo "BUILD EQ/R START: $( date '+%Y-%m-%d %H:%M:%S' )"
   (
-    set -eux
+    # set -x does not seem to work here on osx-64
+    set -eu
+    echo "PWD:"
     pwd -P
-    cd src
-    which Rscript R
-    which swig
+    echo "TOOLS:"
+    which Rscript R swig
     swig -version
+    set -x
+    cd src
     ./configure ${CFG_ARGS[@]} 2>&1
     make 2>&1
     make install 2>&1
