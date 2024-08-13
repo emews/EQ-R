@@ -40,11 +40,13 @@ if [[ $PLATFORM =~ osx-* ]]
 then
   NULL=""
   ZT=""
-  if [[ $PLATFORM =~ osx-arm64 ]]
+  if [[ $PLATFORM == osx-arm64 ]]
   then
     # These variables affect the mpicc/mpicxx wrappers
     export MPICH_CC=clang
     export MPICH_CXX=clang++
+    # osx-arm64 sets this to "-ltcl8.6" for some reason
+    unset LDFLAGS
   fi
 else
   NULL="--null"
@@ -76,7 +78,6 @@ then
     echo "build-generic.sh: Could not find R!"
     exit 1
   fi
-  export R_HOME=$( R RHOME )
 
   echo "build-generic.sh: Installing RInside ..."
   Rscript $SRC_DIR/conda/install-RInside.R 2>&1 | \
@@ -90,6 +91,8 @@ then
 fi
 
 # Determine configuration for EQ/R build:
+export R_HOME=$( R RHOME )
+echo "build-generic.sh: R_HOME=$R_HOME"
 CFG_ARGS=(
   # Cannot install libeqr.so to $PREFIX on osx-64
   # Use subdirectory:
