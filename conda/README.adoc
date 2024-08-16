@@ -157,6 +157,14 @@ means: if `$ENABLE_R == 1`, include file `pkgs-R.yaml` here.
 
 == Platform-specific notes
 
+=== linux-64
+
+After end user installation, must update `gcc` with:
+
+----
+$ conda install -c conda-forge gcc
+----
+
 === osx-64
 
 After end user installation, must update R with:
