@@ -180,3 +180,13 @@ For some reason, R is downgraded during the installation.
 Weirdness with M4: must insert space between end parenthesis and `m4_dnl` .
 
 Anaconda apparently sets `LDFLAGS` during the build process, see `build-generic.sh` .
+
+== Tests
+
+=== Tcl load test
+
+This tests if the package can be loaded and used for R evaluation.  It calls a few functions defined in the EQ/R interface.
+
+----
+$ $CONDA_PREFIX/bin/tclsh conda/test-eqr.tcl $CONDA_PREFIX/libeqr.so
+----
