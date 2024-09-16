@@ -2,6 +2,15 @@
 # HELPERS ZSH
 # Helpers for Anaconda stuff
 
+@()
+# Verbose operation
+{
+  print
+  print ${*}
+  print
+  ${*}
+}
+
 DATE_FMT_S="%D{%Y-%m-%d} %D{%H:%M:%S}"
 log()
 # General-purpose log line
