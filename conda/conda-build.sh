@@ -83,6 +83,7 @@ export PKG_NAME=EQ-R
 
 # Default dependencies:
 export USE_GCC=1
+export USE_LIBSTDCXX=0
 
 # Allow platform to modify dependencies
 source $EQR_CONDA/$PLATFORM/deps.sh
