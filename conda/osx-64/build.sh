@@ -15,7 +15,7 @@ EQR_CONDA=$( cd $RECIPE_DIR/.. ; /bin/pwd -P )
   LDFLAGS+="-F$SDK/System/Library/Frameworks"
 
   # This is needed for osx-64
-  LDFLAGS+=" -L$BUILD_PREFIX/lib -ltcl8.6"
+  # LDFLAGS+=" -L$BUILD_PREFIX/lib -ltcl8.6"
   # LDFLAGS+=" -ltcl8.6" ??
   export LDFLAGS
 
