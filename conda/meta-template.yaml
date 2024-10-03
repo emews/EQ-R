@@ -34,7 +34,6 @@ requirements:
     - autoconf
     - swig
     - make
-    - tk
 m4_ifelse(getenv(USE_TK), `1',m4_include(pkgs-tk.yaml))
 m4_ifelse(getenv(USE_GCC),`1',m4_include(pkgs-gcc.yaml))
 m4_ifelse(getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
