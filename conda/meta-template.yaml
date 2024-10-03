@@ -35,11 +35,13 @@ requirements:
     - swig
     - make
 m4_ifelse(getenv(USE_GCC),`1',m4_include(pkgs-gcc.yaml))
+m4_ifelse(getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
 m4_include(pkgs-R.yaml)
 
   run:
     - python==getenv(PYTHON_VERSION)
 m4_ifelse(getenv(USE_GCC),`1',m4_include(pkgs-gcc.yaml))
+m4_ifelse(getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
 m4_include(pkgs-R.yaml)
 
 test:
