@@ -84,8 +84,10 @@ export PKG_NAME=EQ-R
 # Default dependencies:
 export USE_GCC=1
 export USE_LIBSTDCXX=0
+export USE_TK=1
 
-if [[ ! -e $EQR_CONDA/src/configure ]]
+log "looking for $EQR_HOME/src/configure ..."
+if [[ ! -e $EQR_HOME/src/configure ]]
 then
   log "running bootstrap ..."
   (
