@@ -5,7 +5,7 @@
 
 echo "build.sh: START"
 
-DEV_CONDA=$( cd $RECIPE_DIR/.. ; /bin/pwd -P )
+EQR_CONDA=$( cd $RECIPE_DIR/.. ; /bin/pwd -P )
 
 (
   set -eu
@@ -14,14 +14,13 @@ DEV_CONDA=$( cd $RECIPE_DIR/.. ; /bin/pwd -P )
   LDFLAGS="-L$SDK/usr/lib -lSystem "
   LDFLAGS+="-F$SDK/System/Library/Frameworks"
 
-
-
   # This is needed for osx-64
   LDFLAGS+=" -L$BUILD_PREFIX/lib -ltcl8.6"
+  # LDFLAGS+=" -ltcl8.6" ??
   export LDFLAGS
 
   echo "build.sh: calling build-generic.sh ..."
-  $DEV_CONDA/build-generic.sh
+  $EQR_CONDA/build-generic.sh
 )
 
 echo "build.sh: STOP"

@@ -83,6 +83,7 @@ export PKG_NAME=EQ-R
 
 # Default dependencies:
 export USE_GCC=1
+export USE_LIBSTDCXX=0
 
 if [[ ! -e $EQR_CONDA/src/configure ]]
 then

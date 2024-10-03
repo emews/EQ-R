@@ -18,6 +18,9 @@ export PLATFORM=${THIS:t}
 # The EQ/R Conda script directory:
 EQR_CONDA=${THIS:h}
 
+# This is apparently needed: See README.
+USE_LIBSTDCXX=1
+
 # Sets PYTHON_VERSION
 source $EQR_CONDA/get-python-version.sh
 

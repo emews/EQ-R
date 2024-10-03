@@ -1,0 +1,4 @@
+# pkgs-libstdcxx.yaml: START
+# Extra packages for libstdcxx
+    - libstdcxx
+# pkgs-libstdcxx.yaml: STOP

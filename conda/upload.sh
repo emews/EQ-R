@@ -41,7 +41,10 @@ fi
 renice $PRIORITY 19 $$ >& /dev/null
 
 START=$SECONDS
-@ anaconda upload $FORCE $PKG
+(
+  set -x
+  anaconda upload $FORCE $PKG
+)
 STOP=$SECONDS
 
 DURATION=$(( STOP - START ))

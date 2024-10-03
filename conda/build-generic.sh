@@ -40,7 +40,7 @@ if [[ $PLATFORM =~ osx-* ]]
 then
   NULL=""
   ZT=""
-  if [[ $PLATFORM == osx-arm64 ]]
+  if [[ $PLATFORM =~ osx-arm64 ]]
   then
     # These variables affect the mpicc/mpicxx wrappers
     export MPICH_CC=clang

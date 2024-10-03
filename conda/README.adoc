@@ -190,3 +190,16 @@ This tests if the package can be loaded and used for R evaluation.  It calls a f
 ----
 $ $CONDA_PREFIX/bin/tclsh conda/test-eqr.tcl $CONDA_PREFIX/libeqr.so
 ----
+
+== Troubleshooting
+
+=== linux-64
+
+If you get a C++ lib version error like:
+----
+libstdc++.so.6: version `GLIBCXX_3.4.32' not found
+----
+install Conda package `libstdcxx`.
+
+* Make sure Conda was activated at build and test time?  Does not seem to matter.
+* We made `libstdcxx` a dependency for `linux-64` so this should not be an issue.
