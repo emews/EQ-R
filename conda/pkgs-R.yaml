@@ -8,5 +8,6 @@ COMMENT( Retain indentation                                 )m4_dnl
 m4_ifelse(getenv(PLATFORM),`osx-arm64',
 `    - swift-t::emews-rinside',
 `    - r=4.2'
-)m4_dnl
+)
+# m4_dnl cut this on Rawhide
 # pkgs-R.yaml: STOP
