@@ -1,7 +1,7 @@
 #!/bin/zsh
 set -eu
 
-# linux-64 CONDA PLATFORM
+# linux-aarch64 CONDA PLATFORM
 # Flags:
 #  -C configure-only- generate meta.yaml and settings.sed, then stop
 #  -r for the R version
