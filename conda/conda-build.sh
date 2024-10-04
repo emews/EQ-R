@@ -82,9 +82,9 @@ META_TEMPLATE=$EQR_CONDA/meta-template.yaml
 export PKG_NAME=EQ-R
 
 # Default dependencies:
-export USE_GCC=1
-export USE_LIBSTDCXX=0
-export USE_TK=1
+export USE_GCC=${USE_GCC:-1}
+export USE_LIBSTDCXX=${USE_LIBSTDCXX:-0}
+export USE_TK=${USE_TK:-1}
 
 log "looking for $EQR_HOME/src/configure ..."
 if [[ ! -e $EQR_HOME/src/configure ]]
