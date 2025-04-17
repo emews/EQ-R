@@ -90,7 +90,7 @@ AC_ARG_WITH(tcl,
 USE_TCL_LIB_DIR=0
 
 AC_ARG_WITH(tcl-lib-dir,
-    AC_HELP_STRING([--with-tcl-lib-dir],
+    AS_HELP_STRING([--with-tcl-lib-dir],
                    [directory containing Tcl shared library]),
     [
         USE_TCL_LIB_DIR=${withval}
@@ -368,6 +368,12 @@ AC_SUBST(USE_R)
 AC_SUBST(USE_R_INCLUDE)
 AC_SUBST(RINSIDE_PATH)
 AC_SUBST(RCPP_PATH)
+
+AC_ARG_ENABLE(conda,
+              AS_HELP_STRING([--enable-conda          enable if building for Anaconda, defaults to disabled.]),
+              [ENABLE_CONDA=$enableval],[ENABLE_CONDA=no])
+AC_MSG_RESULT([Using Anaconda: $ENABLE_CONDA])
+AC_SUBST(ENABLE_CONDA)
 
 AC_CONFIG_FILES([Makefile settings.mk])
 AC_OUTPUT

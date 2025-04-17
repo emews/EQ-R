@@ -25,3 +25,5 @@ LDFLAGS := $(LDFLAGS) -Wl,-rpath -Wl,$(R_LIB)
 LDFLAGS := $(LDFLAGS) -Wl,-rpath -Wl,$(R_INSIDE)/lib
 
 TCLSH = @USE_TCLSH@
+
+ENABLE_CONDA := @ENABLE_CONDA@

@@ -12,6 +12,10 @@ CXX = @CXX@
 
 include settings.mk
 
+ifeq ($(ENABLE_CONDA),yes)
+  CONDA_LIB = -Wl,-rpath -Wl,${CONDA_PREFIX}/x86_64-conda-linux-gnu/lib
+endif
+
 EQR_SO = libeqr.so
 
 all: pkg
@@ -39,7 +43,7 @@ HEADERS = $(wildcard *.h) Makefile
 $(EQR_SO): EQR_wrap.o EQR.o
 	$(CXX) -shared -o $(@) \
 		$(^)        \
-		$(LDFLAGS)
+		$(LDFLAGS) $(CONDA_LIB)
 
 pkgIndex.tcl: make-package.tcl $(EQR_SO) Makefile
 	$(TCLSH) $(<) > $(@)
