@@ -12,7 +12,7 @@ CXX = @CXX@
 
 include settings.mk
 
-ifeq ($(ENABLE_CONDA),yes)
+ifeq ($(ENABLE_CONDA_LINUX),yes)
   CONDA_LIB = -Wl,-rpath -Wl,${CONDA_PREFIX}/x86_64-conda-linux-gnu/lib
 endif
 

@@ -62,7 +62,7 @@ Outline
 Anaconda
 --------
 
-When building for Anaconda, provide ``--enable-conda`` to include a critical Anaconda library location.
+When building for Anaconda/Linux, provide ``--enable-conda-linux`` to include a critical Anaconda library location.
 
 Details
 -------

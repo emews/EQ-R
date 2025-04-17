@@ -11,7 +11,7 @@ A=(
   --prefix=$CONDA_PREFIX/lib
   --with-r=$R_HOME
   --with-tcl=$CONDA_PREFIX
-#   --enable-conda
+  --enable-conda-linux
 )
 
 # Find the src directory
