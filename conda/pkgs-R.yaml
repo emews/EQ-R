@@ -5,9 +5,7 @@ COMMENT(          custom-built emews-rinside                )m4_dnl
 COMMENT( Other platforms simply install r and build RInside )m4_dnl
 COMMENT(      inside build-generic.sh                       )m4_dnl
 COMMENT( Retain indentation                                 )m4_dnl
-m4_ifelse(getenv(PLATFORM),`osx-arm64',
-`    - swift-t::emews-rinside',
-`    - r=4.4'
-)
+COMMENT( NEW IDEA: Just rely on Swift/T-R                   )m4_dnl
+
 # m4_dnl cut this on Rawhide
 # pkgs-R.yaml: STOP

@@ -34,16 +34,16 @@ requirements:
     - autoconf
     - swig
     - make
+    - swift-t-r
 m4_ifelse(getenv(USE_TK), `1',m4_include(pkgs-tk.yaml))
 m4_ifelse(getenv(USE_GCC),`1',m4_include(pkgs-gcc.yaml))
 m4_ifelse(getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
-m4_include(pkgs-R.yaml)
 
   run:
     - python==getenv(PYTHON_VERSION)
+    - swift-t-r
 m4_ifelse(getenv(USE_GCC),`1',m4_include(pkgs-gcc.yaml))
 m4_ifelse(getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
-m4_include(pkgs-R.yaml)
 
 test:
   commands:

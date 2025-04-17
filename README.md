@@ -62,6 +62,12 @@ Outline
 Anaconda
 --------
 
+Architecture:
+
+* This package is built on R, using emews-r.  This has no Python version.
+* Then we build the Anaconda package for swift-t-r, which automatically includes a custom-built RInside as part of the ``swift-t-r`` package.
+* Then we build EQ-R
+
 When building for Anaconda/Linux, provide ``--enable-conda-linux`` to include a critical Anaconda library location.
 
 Details
