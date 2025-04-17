@@ -20,9 +20,6 @@ File index
 ``EQR.i``
   The SWIG interface file for EQ-R.
 
-``settings.template.sh``
-  Contains example compilier settings for compling EQ-R.
-
 ``settings.mk.in``
   Filters into ``settings.mk`` at configure time.  This can be
   ``include`` <!--- --> by other Makefiles to obtain build settings, for
@@ -32,7 +29,7 @@ Spack Install
 =======
 * Install [Spack](https://spack.readthedocs.io/en/latest/getting_started.html)
   * ``git clone https://github.com/spack/spack.git``
-* Set up Spack shell support, e.g., for bash 
+* Set up Spack shell support, e.g., for bash
   * ``. spack/share/spack/setup-env.sh``
 * Clone the EMEWS Spack repository
   * ``git clone https://github.com/emews/spack_emews``
@@ -45,7 +42,7 @@ Spack Install
 
 This will install EQ/R along with any dependencies. (Look [here](http://swift-lang.github.io/swift-t/guide.html#_spack_tips) for tips for using existing dependencies.) You will then need to point to the install location of EQ/R in your EMEWS workflow launch script. The location can be queried via:
 
-* ``spack location --install-dir eqr`` 
+* ``spack location --install-dir eqr``
 
 For information on installing Swift/T for EMEWS, look [here](https://emews.github.io).
 
@@ -54,11 +51,18 @@ Manual Build
 
 Outline
 -------
+``cd src``
+
 ``./bootstrap``
 
 ``./configure ...``
 
 ``make install``
+
+Anaconda
+--------
+
+When building for Anaconda, provide ``--enable-conda`` to include a critical Anaconda library location.
 
 Details
 -------
@@ -72,6 +76,7 @@ settings are:
 compatibility with EMEWS templates (https://github.com/emews/emews-lazybones-templates)
 * ``--with-tcl``: Point to Tcl installation root (e.g., /usr)
 * ``--with-r``: Point to R installation root (requires RInside and Rcpp packages)
+* ``--enable-conda``: Provide this if you are building the Anaconda package
 
 Then do ``make install``.
 
@@ -79,7 +84,8 @@ You can do ``make clean`` or ``make distclean``.
 
 
 Troubleshooting
--------
+---------------
+
 **./configure halts with "checking whether the C++ compiler works... no"**
 
 To inspect what went went wrong, you will have to look in the generated
