@@ -115,12 +115,6 @@ if [[ -f $LOG ]] {
   print
 }
 
-if [[ $PLATFORM == "osx-arm64" ]] {
-  # This is just for our emews-rinside:
-  CHANNEL_SWIFT=( -c swift-t )
-} else {
-  CHANNEL_SWIFT=()
-}
 
 {
   log "CONDA BUILD: START: ${(%)DATE_FMT_S}"
@@ -136,12 +130,16 @@ if [[ $PLATFORM == "osx-arm64" ]] {
     # This purge-all is extremely important:
     conda build purge-all
 
+    BUILD_ARGS=(
+      -c conda-forge
+      # We always rely on swift-t::swift-t-r now: 2025-04-22
+      -c swift-t
+      --dirty
+      .
+    )
+
     # Build the package!
-    conda build \
-          -c conda-forge \
-          $CHANNEL_SWIFT \
-          --dirty \
-          .
+    conda build $BUILD_ARGS
   )
   log "CONDA BUILD: STOP: ${(%)DATE_FMT_S}"
 } |& tee $LOG
