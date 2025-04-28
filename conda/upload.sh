@@ -41,10 +41,14 @@ fi
 renice $PRIORITY 19 $$ >& /dev/null
 
 START=$SECONDS
-(
+() {
+  # Anonymous function for 'set -x'
+  # For 'set -x' including newline:
+  PS4="
++ "
   set -x
   anaconda upload $FORCE $PKG
-)
+}
 STOP=$SECONDS
 
 DURATION=$(( STOP - START ))
