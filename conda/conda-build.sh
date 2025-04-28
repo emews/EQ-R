@@ -159,7 +159,7 @@ export PYTHONWARNINGS="ignore::UserWarning"
     # Build the package!
 
     conda build $BUILD_ARGS
-  )
+  }
   log "BUILD: STOP: ${(%)DATE_FMT_S}"
 } |& tee $LOG
 print
