@@ -3,13 +3,12 @@ set -eu
 
 # CONDA BUILD
 # Generic wrapper around `conda build'
-# Called by PLATFORM/conda-platform.sh
 # Generates meta.yaml and runs `conda build'
 # Generates settings.sed for the EQ/R build
 # Many exported environment variables here
 #      are substituted into meta.yaml
 # This script runs in the PLATFORM subdirectory
-#      and should not change directories
+#      and should not change directories from there
 # A LOG is produced named PLATFORM/conda-build.log
 # You can only run 1 job concurrently
 #     because of the log and
@@ -24,30 +23,39 @@ Options:
    -R for the R version
 
 END
+  exit
 }
 
 C="" R=""
 zparseopts -D -E -F h=HELP C=C r=R
 
-if (( ${#HELP} )) {
-  help
-  exit
-}
+if (( ${#HELP} )) help
+if (( ${#*} != 1 )) abort "conda-build.sh: Provide CONDA_PLATFORM!"
 
-# Get this directory (absolute):
+# The EQ/R Conda script directory (absolute):
 EQR_CONDA=${0:A:h}
+# Get the top-level git clone directory :
 export EQR_HOME=${EQR_CONDA:h}
 
 source $EQR_CONDA/helpers.zsh
 
-if (( ${#PLATFORM:-} == 0 )) {
-  log "unset: PLATFORM"
-  log "       This script should be called by a conda-platform.sh"
+# For log()
+LOG_LABEL="conda-build:"
+
+# The PLATFORM under Anaconda naming conventions:
+export CONDA_PLATFORM=$1
+shift
+
+log "CONDA-BUILD ..."
+log "CONDA_PLATFORM:  $CONDA_PLATFORM $*"
+
+source $EQR_CONDA/get-python-version.sh
+
+if [[ ! -d $EQR_CONDA/$CONDA_PLATFORM ]] {
+  printf "conda-build.sh: No such platform: '%s'\n" $CONDA_PLATFORM
   return 1
 }
-
-print "CONDA BUILD ..."
-log "PLATFORM: $PLATFORM $*"
+cd $EQR_CONDA/$CONDA_PLATFORM
 
 # Check that the conda-build tool in use is in the
 #       selected Python installation
@@ -97,10 +105,11 @@ then
 fi
 
 # Allow platform to modify dependencies
-source $EQR_CONDA/$PLATFORM/deps.sh
+source $EQR_CONDA/$CONDA_PLATFORM/deps.sh
 
 export DATE=${(%)DATE_FMT_S}
 m4 -P -I $EQR_CONDA $COMMON_M4 $META_TEMPLATE > meta.yaml
+log "wrote $PWD/meta.yaml"
 
 if (( ${#C} )) {
   log "configure-only: exit."
@@ -115,23 +124,30 @@ if [[ -f $LOG ]] {
   print
 }
 
-if [[ $PLATFORM == "osx-arm64" ]] {
+if [[ $CONDA_PLATFORM == "osx-arm64" ]] {
   # This is just for our emews-rinside:
   CHANNEL_SWIFT=( -c swift-t )
 } else {
   CHANNEL_SWIFT=()
 }
 
+# Disable
+# "UserWarning: The environment variable 'X' is being passed through"
+export PYTHONWARNINGS="ignore::UserWarning"
+
 {
-  log "CONDA BUILD: START: ${(%)DATE_FMT_S}"
+  log "START: ${(%)DATE_FMT_S}"
   print
-  (
+  () {
+    # Anonymous function for set -x
+
     log "using python: " $( which python )
     log "using conda:  " $( which conda  )
     print
-    conda env list
-    print
 
+    # For 'set -x' including newline:
+    PS4="
++ "
     set -x
     # This purge-all is extremely important:
     conda build purge-all
@@ -142,8 +158,8 @@ if [[ $PLATFORM == "osx-arm64" ]] {
           $CHANNEL_SWIFT \
           --dirty \
           .
-  )
-  log "CONDA BUILD: STOP: ${(%)DATE_FMT_S}"
+  }
+  log "STOP: ${(%)DATE_FMT_S}"
 } |& tee $LOG
 print
 log "conda build succeeded."
@@ -156,7 +172,7 @@ UPLOAD=( $( grep -A 1 "anaconda upload" $LOG ) )
 PKG=${UPLOAD[-1]}
 
 # Print metadata about the PKG
-(
+{
   print
   zmodload zsh/mathfunc zsh/stat
   print PKG=$PKG
@@ -165,5 +181,5 @@ PKG=${UPLOAD[-1]}
   printf -v T "SIZE: %.1f MB" $(( float(${A[size]}) / (1024*1024) ))
   log $T
   log "HASH:" $( checksum $PKG )
-) | tee -a $LOG
+} | tee -a $LOG
 print

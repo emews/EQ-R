@@ -23,7 +23,7 @@ checksum()
 {
   # Use redirection to suppress filename in md5 output
   local PKG=$1
-  if [[ $PLATFORM =~ osx-* ]] {
+  if [[ $CONDA_PLATFORM =~ osx-* ]] {
     md5 -r < $PKG
   } else {
     md5sum < $PKG

@@ -1,6 +1,9 @@
 #!/bin/zsh
 set -eu
 
+print CONDA PLATFORM: DEPRECATED
+exit 1
+
 # osx-arm64 CONDA PLATFORM
 # Flags:
 #  -C configure-only- generate meta.yaml and settings.sed, then stop

@@ -24,8 +24,7 @@ build:
   # Environment variables for build.sh must be listed here,
   # normal environment inheritance does not happen!
   script_env:
-    - PLATFORM=getenv(PLATFORM)
-m4_ifelse(getenv(ENABLE_R),`1',m4_include(env-R.yaml))
+    - PLATFORM=getenv(CONDA_PLATFORM)
 
 # Remember to sync any dependency changes here with conda-install.sh
 requirements:

@@ -1,4 +1,4 @@
 # pkgs-tk.yaml: START
-# Extra packages for tk
+# Extra packages for tk (OS/X may require this)
     - tk
 # pkgs-tk.yaml: STOP
