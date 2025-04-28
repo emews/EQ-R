@@ -115,8 +115,8 @@ echo "CFG_ARGS:" ${CFG_ARGS[@]}
     echo "TOOLS:"
     which Rscript R swig
     swig -version
-    set -x
     cd src
+    set -x
     ./configure ${CFG_ARGS[@]} 2>&1
     make 2>&1
     make install 2>&1

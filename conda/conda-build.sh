@@ -94,7 +94,6 @@ export USE_GCC=${USE_GCC:-1}
 export USE_LIBSTDCXX=${USE_LIBSTDCXX:-0}
 export USE_TK=${USE_TK:-1}
 
-log "looking for $EQR_HOME/src/configure ..."
 if [[ ! -e $EQR_HOME/src/configure ]]
 then
   log "running bootstrap ..."
@@ -139,14 +138,6 @@ export PYTHONWARNINGS="ignore::UserWarning"
 
     log "using python: " $( which python )
     log "using conda:  " $( which conda  )
-    print
-
-    # For 'set -x' including newline:
-    PS4="
-+ "
-    set -x
-    # This purge-all is extremely important:
-    conda build purge-all
 
     BUILD_ARGS=(
       -c conda-forge
@@ -156,8 +147,14 @@ export PYTHONWARNINGS="ignore::UserWarning"
       .
     )
 
-    # Build the package!
+    # For 'set -x' including newline:
+    PS4="
++ "
+    set -x
+    # This purge-all is extremely important:
+    conda build purge-all
 
+    # Build the package!
     conda build $BUILD_ARGS
   }
   log "BUILD: STOP: ${(%)DATE_FMT_S}"
