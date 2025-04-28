@@ -163,8 +163,6 @@ export PYTHONWARNINGS="ignore::UserWarning"
   log "BUILD: STOP: ${(%)DATE_FMT_S}"
 } |& tee $LOG
 print
-log "conda build succeeded."
-print
 
 # Find the "upload" text for the PKG in the LOG,
 #      this will give us the PKG file name
