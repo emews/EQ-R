@@ -2,11 +2,10 @@ COMMENT(
 # META TEMPLATE YAML
 # Will be filtered into PLATFORM/meta.yaml by conda-build.sh:m4
 )
-
 # Date that this meta.yaml was filtered:
-# DATE: getenv(DATE)
+# DATE: m4_getenv(DATE)
 
-{% set name = "getenv(PKG_NAME)" %}
+{% set name = "m4_getenv(PKG_NAME)" %}
 {% set version = "1.1" %}
 {% set major = version.rpartition('.')[0] %}
 {% set sha256 = 'f5b26bb1ac427c271e19dff2146101f7c4da03652d66426a291e96638ba15c03' %}
@@ -17,32 +16,32 @@ package:
   sha256: {{ sha256 }}
 
 source:
-  path: getenv(EQR_HOME)
+  path: m4_getenv(EQR_HOME)
 
 build:
   number: 1
   # Environment variables for build.sh must be listed here,
   # normal environment inheritance does not happen!
   script_env:
-    - PLATFORM=getenv(CONDA_PLATFORM)
+    - PLATFORM=m4_getenv(CONDA_PLATFORM)
 
 # Remember to sync any dependency changes here with conda-install.sh
 requirements:
   build:
-    - python==getenv(PYTHON_VERSION)
+    - python m4_getenv(PYTHON_SERIES)
     - autoconf
     - swig
     - make
-    - swift-t-r
-m4_ifelse(getenv(USE_TK), `1',m4_include(pkgs-tk.yaml))
-m4_ifelse(getenv(USE_GCC),`1',m4_include(pkgs-gcc.yaml))
-m4_ifelse(getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
+    - swift-t-r=1.6.6
+m4_ifelse(m4_getenv(USE_TK),       `1',m4_include(pkgs-tk.yaml))
+m4_ifelse(m4_getenv(USE_GCC),      `1',m4_include(pkgs-gcc.yaml))
+m4_ifelse(m4_getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
 
   run:
-    - python==getenv(PYTHON_VERSION)
-    - swift-t-r
-m4_ifelse(getenv(USE_GCC),`1',m4_include(pkgs-gcc.yaml))
-m4_ifelse(getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
+    - python==m4_getenv(PYTHON_VERSION)
+    - swift-t-r==1.6.6
+m4_ifelse(m4_getenv(USE_GCC),      `1',m4_include(pkgs-gcc.yaml))
+m4_ifelse(m4_getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
 
 test:
   commands:

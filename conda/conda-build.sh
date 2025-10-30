@@ -51,6 +51,8 @@ log "CONDA_PLATFORM:  $CONDA_PLATFORM $*"
 
 source $EQR_CONDA/get-python-version.sh
 
+log "PYTHON_VERSION: $PYTHON_VERSION   SERIES: $PYTHON_SERIES"
+
 if [[ ! -d $EQR_CONDA/$CONDA_PLATFORM ]] {
   printf "conda-build.sh: No such platform: '%s'\n" $CONDA_PLATFORM
   return 1
