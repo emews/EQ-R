@@ -8,7 +8,7 @@ toc::[]
 
 == Quickstart
 
-* Use `PLATFORM/conda-platform.sh` to build the Conda package.
+* Use `PLATFORM/conda-build.sh` to build the Conda package.
 ** This always does `conda build purge-all`, which is necessary
 * Use `conda-install.sh` to install the Conda package
 ** This installs the deps separately
@@ -116,14 +116,16 @@ We call `conda build` inside our `conda-build.sh`
 
 It is best to create a Miniconda installation in RAM disk on your system
 for building the packages.
-Installing Miniconda should take less than 10 seconds.
+
+* Installing Miniconda should take less than 10 seconds.
+** or under 2 minutes on a Mac
 
 == Upload to Anaconda
 
 The Anaconda package name is taken from `meta.yaml` and put in the PKG.
 
 ----
-$ PKG=CONDA/conda-bld/linux-64/swift-t-*.tar.bz2
+$ PKG=CONDA/conda-bld/linux-64/eq-r-*.conda
 $ anaconda login
 $ anaconda upload $PKG
 ----
