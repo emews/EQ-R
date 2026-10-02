@@ -90,6 +90,7 @@ COMMON_M4=common.m4
 META_TEMPLATE=$EQR_CONDA/meta-template.yaml
 
 export PKG_NAME=EQ-R
+export SWIFT_T_R_VERSION=1.6.9
 
 # Default dependencies:
 export USE_GCC=${USE_GCC:-1}
