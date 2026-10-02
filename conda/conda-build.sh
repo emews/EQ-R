@@ -20,6 +20,11 @@ help()
 Options:
    -C configure-only- generate meta.yaml and settings.sed, then stop
    -r for the R version
+   CONDA_PLATFORM BUILD_NUMBER
+
+Arguments:
+   CONDA_PLATFORM : platform (linux-64, osx-arm64, etc)
+   BUILD_NUMBER   : conda build number (integer)
 
 END
   exit
@@ -29,7 +34,6 @@ C="" R=""
 zparseopts -D -E -F h=HELP C=C r=R
 
 if (( ${#HELP} )) help
-if (( ${#*} != 1 )) abort "conda-build.sh: Provide CONDA_PLATFORM!"
 
 # The EQ/R Conda script directory (absolute):
 EQR_CONDA=${0:A:h}
@@ -41,9 +45,19 @@ source $EQR_CONDA/helpers.zsh
 # For log()
 LOG_LABEL="conda-build:"
 
+# Require CONDA_PLATFORM and BUILD_NUMBER as positional args
+if (( ${#*} != 2 )) abort "Provide CONDA_PLATFORM BUILD_NUMBER"
+
 # The PLATFORM under Anaconda naming conventions:
 export CONDA_PLATFORM=$1
-shift
+# The conda build number (substituted into meta.yaml):
+export BUILD_NUMBER=$2
+# Must be a non-negative integer: catches swapped arguments, etc.
+if [[ $BUILD_NUMBER != <-> ]] \
+  abortf "conda-build.sh: invalid BUILD_NUMBER, got: '%s'\n" \
+         $BUILD_NUMBER
+
+shift 2
 
 export PKG_NAME=EQ-R
 export EQR_VERSION=1.3
@@ -51,17 +65,15 @@ export SWIFT_T_R_VERSION=1.6.9
 
 log "CONDA-BUILD ($CONDA_PLATFORM)" \
     "EQ-R=$EQR_VERSION swift-t-r=$SWIFT_T_R_VERSION"
+log "BUILD_NUMBER:    $BUILD_NUMBER"
 
 source $EQR_CONDA/get-python-version.sh
 
 log "PYTHON_VERSION: $PYTHON_VERSION   SERIES: $PYTHON_SERIES"
 
-log "FLAGS: ${*}"
+if [[ ! -d $EQR_CONDA/$CONDA_PLATFORM ]] \
+  abortf "No such platform: '%s'\n" $CONDA_PLATFORM
 
-if [[ ! -d $EQR_CONDA/$CONDA_PLATFORM ]] {
-  printf "conda-build.sh: No such platform: '%s'\n" $CONDA_PLATFORM
-  return 1
-}
 cd $EQR_CONDA/$CONDA_PLATFORM
 
 # Check that the conda-build tool in use is in the
@@ -90,6 +102,23 @@ if [[ ${TOOLDIR} != ${PYTHON_BIN} ]] {
 # We must set CONDA_PREFIX:
 # https://github.com/ContinuumIO/anaconda-issues/issues/10156
 export CONDA_PREFIX=${PYTHON_BIN:h}
+
+# Check if a package with this BUILD_NUMBER already exists locally.
+# This warns the user they may be rebuilding with a stale build number.
+BLD_DIR=$CONDA_PREFIX/conda-bld/$CONDA_PLATFORM
+if [[ -d $BLD_DIR ]] {
+  EXISTING_PKGS=( $BLD_DIR/*_${BUILD_NUMBER}.conda(N) )
+  if (( ${#EXISTING_PKGS} > 0 )) {
+    log "ERROR: BUILD_NUMBER=$BUILD_NUMBER found in $BLD_DIR:"
+    for f in $EXISTING
+    do
+      log "  ${f:t}"
+    done
+    log "You must bump the build number."
+    log "This avoids cache hits and package reuse on GitHub."
+    return 1
+  }
+}
 
 COMMON_M4=common.m4
 META_TEMPLATE=$EQR_CONDA/meta-template.yaml

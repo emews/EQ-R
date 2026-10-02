@@ -29,3 +29,17 @@ checksum()
     md5sum < $PKG
   }
 }
+
+abort()
+{
+  log "ABORT:" ${*}
+  exit 1
+}
+
+abortf()
+{
+  local T
+  printf -v T "${*}"
+  log "ABORT:" $T
+  exit 1
+}
