@@ -46,12 +46,18 @@ LOG_LABEL="conda-build:"
 export CONDA_PLATFORM=$1
 shift
 
-log "CONDA-BUILD ..."
-log "CONDA_PLATFORM:  $CONDA_PLATFORM $*"
+export PKG_NAME=EQ-R
+export EQR_VERSION=1.3
+export SWIFT_T_R_VERSION=1.6.9
+
+log "CONDA-BUILD ($CONDA_PLATFORM)" \
+    "EQ-R=$EQR_VERSION swift-t-r=$SWIFT_T_R_VERSION"
 
 source $EQR_CONDA/get-python-version.sh
 
 log "PYTHON_VERSION: $PYTHON_VERSION   SERIES: $PYTHON_SERIES"
+
+log "FLAGS: ${*}"
 
 if [[ ! -d $EQR_CONDA/$CONDA_PLATFORM ]] {
   printf "conda-build.sh: No such platform: '%s'\n" $CONDA_PLATFORM
@@ -88,9 +94,6 @@ export CONDA_PREFIX=${PYTHON_BIN:h}
 
 COMMON_M4=common.m4
 META_TEMPLATE=$EQR_CONDA/meta-template.yaml
-
-export PKG_NAME=EQ-R
-export SWIFT_T_R_VERSION=1.6.9
 
 # Default dependencies:
 export USE_GCC=${USE_GCC:-1}
