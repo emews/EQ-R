@@ -4,7 +4,6 @@ set -eu
 # CONDA BUILD
 # Generic wrapper around `conda build'
 # Generates meta.yaml and runs `conda build'
-# Generates settings.sed for the EQ/R build
 # Many exported environment variables here
 #      are substituted into meta.yaml
 # This script runs in the PLATFORM subdirectory
