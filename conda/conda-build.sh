@@ -105,12 +105,13 @@ export CONDA_PREFIX=${PYTHON_BIN:h}
 
 # Check if a package with this BUILD_NUMBER already exists locally.
 # This warns the user they may be rebuilding with a stale build number.
+setopt EXTENDED_GLOB # For case-insensitive glob (#i)
 BLD_DIR=$CONDA_PREFIX/conda-bld/$CONDA_PLATFORM
 if [[ -d $BLD_DIR ]] {
-  EXISTING_PKGS=( $BLD_DIR/*_${BUILD_NUMBER}.conda(N) )
+  EXISTING_PKGS=( $BLD_DIR/(#i)${PKG_NAME}*_${BUILD_NUMBER}.conda(N) )
   if (( ${#EXISTING_PKGS} > 0 )) {
     log "ERROR: BUILD_NUMBER=$BUILD_NUMBER found in $BLD_DIR:"
-    for f in $EXISTING
+    for f in $EXISTING_PKGS
     do
       log "  ${f:t}"
     done
