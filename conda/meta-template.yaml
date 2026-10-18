@@ -40,6 +40,7 @@ m4_ifelse(m4_getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
   run:
     - python==m4_getenv(PYTHON_SERIES)
     - swift-t-r==m4_getenv(SWIFT_T_R_VERSION)
+m4_ifelse(m4_getenv(USE_TK),       `1',m4_include(pkgs-tk.yaml))
 m4_ifelse(m4_getenv(USE_GCC),      `1',m4_include(pkgs-gcc.yaml))
 m4_ifelse(m4_getenv(USE_LIBSTDCXX),`1',m4_include(pkgs-libstdcxx.yaml))
 

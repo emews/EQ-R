@@ -1,4 +1,12 @@
 # pkgs-tk.yaml: START
 # Extra packages for tk (OS/X may require this)
-    - tk
+# Floor is 8.6.15 to avoid the tk 8.6.13 strstr bug that makes
+# libtclturbine fail to load on macOS with "_strstr not found".
+# Upper bound <9.0a0 because Turbine links libtcl8.6 at build time
+# so Tcl 9 (libtcl9.0) would fail to load. See transcript note 19c.
+# The spec line is m4-quoted with ` ... ' to protect its comma:
+# this file is pulled in as an m4_ifelse arg and an unquoted comma
+# is read as an arg separator that drops the rest of the file.
+# Do not put commas in the plain # comment lines above.
+`    - tk>=8.6.15,<9.0a0'
 # pkgs-tk.yaml: STOP
