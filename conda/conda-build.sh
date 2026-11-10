@@ -128,6 +128,7 @@ META_TEMPLATE=$EQR_CONDA/meta-template.yaml
 export USE_GCC=${USE_GCC:-1}
 export USE_LIBSTDCXX=${USE_LIBSTDCXX:-0}
 export USE_TK=${USE_TK:-1}
+export SPEC_TK=${SPEC_TK:-tk=8.6}
 
 if [[ ! -e $EQR_HOME/src/configure ]]
 then
